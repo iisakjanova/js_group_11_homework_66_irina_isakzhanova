@@ -1,7 +1,8 @@
 import React from 'react';
 import Categories from "../../components/Categories/Categories";
 import QuotesList from "../../components/QuotesList/QuotesList";
-
+import withLoader from "../../hoc/withLoader";
+import axiosApi from "../../axiosApi";
 import './Home.css';
 
 const Home = () => {
@@ -13,4 +14,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default withLoader(Home, axiosApi);

@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useRouteMatch} from 'react-router-dom'
 import axiosApi from "../../axiosApi";
-
-import Spinner from "../UI/Spinner/Spinner";
 import Quote from "../Quote/Quote";
 
 import {categories} from '../../constants.js'
@@ -17,17 +15,15 @@ const QuotesList = () => {
     }
 
     const [quotes, setQuotes] = useState('');
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         (async () => {
-            setLoading(true);
 
             try {
                 const quotes = await getQuotes();
                 setQuotes(quotes);
-            } finally {
-                setLoading(false);
+            } catch (e) {
+                console.log(e.message);
             }
         })();
     }, [selectedCategory]);
@@ -48,24 +44,20 @@ const QuotesList = () => {
 
     return (
         <div className="QuotesList">
-            {loading
+            {quotesArray.length > 0
                 ?
-                <Spinner />
+                <div>
+                    <h4>{categoryData.title}</h4>
+                    {quotesArray.map(key => (
+                        <Quote
+                            key={key}
+                            text={quotes[key].text}
+                            author={quotes[key].author}
+                        />
+                    ))}
+                </div>
                 :
-                quotesArray.length > 0
-                    ?
-                    <div>
-                        <h4>{categoryData.title}</h4>
-                        {quotesArray.map(key => (
-                            <Quote
-                                key={key}
-                                text={quotes[key].text}
-                                author={quotes[key].author}
-                            />
-                        ))}
-                    </div>
-                    :
-                    <p>No quotes yet</p>
+                <p>No quotes yet</p>
             }
         </div>
     );
