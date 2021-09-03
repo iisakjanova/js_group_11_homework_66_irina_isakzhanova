@@ -4,7 +4,6 @@ import {Route, Switch} from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Home from "../Home/Home";
 
-
 import "./Quotes.css";
 
 const Quotes = () => {

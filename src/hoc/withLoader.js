@@ -14,11 +14,25 @@ const withLoader = (WrappedComponent, axios) => {
             );
         }, []);
 
+        const interceptorsResponseId = useMemo(() => {
+            return axios.interceptors.response.use(
+                res => {
+                    setLoad(false);
+                    return res;
+                }, error => {
+                    setLoad(false);
+                    throw error;
+                }
+            );
+        }, []);
+
         useEffect(() => {
             return () => {
                 axios.interceptors.request.eject(interceptorsRequestId);
+                axios.interceptors.response.eject(interceptorsResponseId);
             }
-        }, [interceptorsRequestId]);
+        }, [interceptorsResponseId, interceptorsRequestId]);
+
 
         return (
             <>
