@@ -1,5 +1,6 @@
 .HomePage {
     display: flex;
+    margin-bottom: 20px;
 }
 
 .Categories {
@@ -8,4 +9,9 @@
 
 .QuotesList {
     width: 70%
+}
+
+.ErrorBtn {
+    display: block;
+    margin: 0 auto 30px;
 }

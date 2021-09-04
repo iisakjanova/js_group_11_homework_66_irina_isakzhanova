@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import axiosApi from "../../axiosApi";
 import withLoader from "../../hoc/withLoader";
 
+import './ErrorBoundary.css';
+
 class ErrorBoundary extends Component {
     constructor(props) {
         super(props);
         this.state = {
             hasError: false,
             errorMessage: '',
+            errorInfo: '',
         };
     }
 
@@ -15,18 +18,26 @@ class ErrorBoundary extends Component {
         const date = new Date();
         axiosApi.post('/errors.json', {
             date,
-            info
+            info,
         });
     }
 
     componentDidCatch(error, errorInfo) {
-        this.setState({hasError: true, errorMessage: error});
+        this.setState({
+            hasError: true,
+            errorMessage: error,
+            errorInfo: errorInfo.componentStack,
+        });
         this.sendErrorInfo(errorInfo);
     }
 
     render() {
         if (this.state.hasError) {
-            return <div>Something wrong happened</div>
+            return <div className="ErrorText">
+                <p>Something wrong is happened</p>
+                <p>{this.state.errorInfo}</p>
+                <p>Error data is sent on server for analise.</p>
+            </div>
         } else {
             return  this.props.children
         }

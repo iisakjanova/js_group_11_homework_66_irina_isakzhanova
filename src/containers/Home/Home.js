@@ -21,7 +21,12 @@ const Home = () => {
                 <Categories />
                 <QuotesList />
             </div>
-            <button onClick={handleErrorButtonClick}>Generate error</button>
+            <button
+                className="ErrorBtn"
+                onClick={handleErrorButtonClick}
+            >
+                Generate error
+            </button>
         </>
     );
 };
