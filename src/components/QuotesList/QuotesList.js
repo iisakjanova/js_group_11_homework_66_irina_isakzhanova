@@ -3,7 +3,7 @@ import {useRouteMatch} from 'react-router-dom'
 import axiosApi from "../../axiosApi";
 import Quote from "../Quote/Quote";
 
-import {categories} from '../../constants.js'
+import {categories} from '../../constants.js';
 
 const QuotesList = () => {
     const match = useRouteMatch("/quotes/:category");
