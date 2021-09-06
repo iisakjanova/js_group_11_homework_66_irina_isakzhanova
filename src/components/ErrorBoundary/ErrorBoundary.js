@@ -22,24 +22,35 @@ class ErrorBoundary extends Component {
         });
     }
 
+    returnToHome = () => {
+        this.sendErrorInfo(this.state.errorInfo);
+        this.props.history.replace('/');
+        this.setState({
+            hasError: false,
+            errorMessage: '',
+            errorInfo: '',
+        });
+    }
+
     componentDidCatch(error, errorInfo) {
         this.setState({
             hasError: true,
             errorMessage: error,
             errorInfo: errorInfo.componentStack,
         });
-        this.sendErrorInfo(errorInfo);
     }
 
     render() {
         if (this.state.hasError) {
-            return <div className="ErrorText">
-                <p>Something wrong is happened</p>
-                <p>{this.state.errorInfo}</p>
-                <p>Error data is sent on server for analise.</p>
-            </div>
+            return (
+                <div className="ErrorText">
+                    <h1>Something wrong is happened</h1>
+                    <button onClick={this.returnToHome}>Return to home page</button>
+                    <p>*Error data will be sent on server for analise.</p>
+                </div>
+            )
         } else {
-            return  this.props.children
+            return this.props.children;
         }
     }
 }

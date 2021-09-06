@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, useHistory} from "react-router-dom";
 
 import Header from "../../components/Header/Header";
 import Home from "../Home/Home";
@@ -9,8 +9,10 @@ import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import "./Quotes.css";
 
 const Quotes = () => {
+    const history = useHistory();
+
     return (
-        <ErrorBoundary>
+        <ErrorBoundary history={history}>
             <Header />
             <Switch>
                 <Route path="/" exact component={Home} />
